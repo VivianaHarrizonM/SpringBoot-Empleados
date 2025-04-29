@@ -1,11 +1,16 @@
+
 services:
   - type: web
-    name: empleados-springboot
-    env: java
+    name: SpringBoot-Empleados
+    env: docker
     plan: free
-    buildCommand: "./mvnw clean package"
-    startCommand: "java -jar target/empleados-0.0.1-SNAPSHOT.war"
+    dockerfilePath: Dockerfile
     envVars:
+      - key: DATABASE_URL
+        value: jdbc:mysql://tu-base-de-datos:3306/empleados
+      - key: DATABASE_USERNAME
+        value: root
+      - key: DATABASE_PASSWORD
+        value: admin
       - key: SPRING_PROFILES_ACTIVE
         value: production
-    region: oregon
