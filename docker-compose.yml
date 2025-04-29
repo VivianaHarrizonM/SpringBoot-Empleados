@@ -3,28 +3,28 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8
-    container_name: mysql_container
+    container_name: mysql
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: empleados_db
       MYSQL_USER: user
       MYSQL_PASSWORD: admin
-    ports:
-      - "3306:3306"  # Exponer el puerto de MySQL
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
       - backend
 
   empleados:
-    image: empleados-image  # Imagen de tu aplicación Spring Boot
+    image: empleados-image
     container_name: empleados_app
     depends_on:
       - mysql
     networks:
       - backend
     ports:
-      - "8080:8080"  # Exponer el puerto de tu app
+      - "8080:8080"
 
 networks:
   backend:
